@@ -2,9 +2,7 @@
 const router = require("express").Router();
 const {getUsers,postUser,putUser,deleteUser}=require("../controllers/user.controllers.js")
 
-router.get("/",(req, res)=>{
-    res.send("probando")
-})
+
 //ruta para obtener todos los usuarios
 router.get("/user",getUsers)
 //crear nuevo usuario
