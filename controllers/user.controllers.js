@@ -27,15 +27,37 @@ return res.json ({
 })
 }
 // Controlador para actualizar un usuario, requiere que se envíe ID  de usuario.
-ctrlUser.putUser = async(req,res)=>{
-   return res.json ({
-       msg:"El usuario a sido actualizado con exito"
-   })
+ctrlUser.putUser = async (req,res)=>{
+   const idusu= req.params.id
+   const {username,password,email}=req.body
+   try{
+    const usuactualizado = await User.findByIdAndUpdate(idusu,{username, password, email})
+    return res.json({
+        msg:" El usuario fue actualización con exito"
+    }) 
+   }
+   catch(error){
+    console.log(error)
+    return res.json({
+        msg:"Ocurrio un error"
+    }) 
+   }
 };
 //controlador para eliminar usuario requiere ID de usuario
 ctrlUser.deleteUser = async(req,res)=>{
-    return res.json({
-        msg:" El usuario fue eliminado con exito"
-    })
+    const idusu= req.params.id
+    
+    try{
+     const usueliminado = await User.findByIdAndUpdate(idusu,{active:false})
+     return res.json({
+         msg:" El usuario fue eliminado con exito"
+     }) 
+    }
+    catch(error){
+     console.log(error)
+     return res.json({
+         msg:"Ocurrio un error"
+     }) 
+    }
 }
 module.exports=ctrlUser;

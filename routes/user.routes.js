@@ -8,8 +8,8 @@ router.get("/user",getUsers)
 //crear nuevo usuario
 router.post("/user",postUser)
 //editar usuario requiere id de usuario
-router.put("/user",putUser)
+router.put("/user/:id",putUser)
 //eliminar usuario
-router.delete("/user",deleteUser)
+router.delete("/user/:id",deleteUser)
 // se exporta el objeto router que contiene todas las rutas
 module.exports = router;
