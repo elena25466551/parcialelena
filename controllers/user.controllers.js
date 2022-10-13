@@ -1,4 +1,5 @@
-const User = require("../src/models/user");
+const User = require("../src/models/user");//requiero esquema de usuario
+const encriptar = require("bcrypt")//guardo la libreria bcrypt que es para encriptar en una variable
 const ctrlUser={};
 //controlador para obtener todos los usuarios de la base de datos
 ctrlUser.getUsers = async (req,res)=>{
@@ -11,11 +12,13 @@ return res.json(users)
 //controlador para crear nuevo usuario en la BD
 ctrlUser.postUser = async(req,res)=>{
     // se obtienen los datos enviados por el metodo POST
-    const { username, password, email } = req.body;
+    const { username, password:contrasenarecibida, email } = req.body;
+    //guardo en una variable la contraseña encriptada
+const contrasenanueva=encriptar.hashSync(contrasenarecibida,10)
     //se instancia un nuevo documento MongoDB para luego guardarlo
     const newUser = new User({
         username,
-        password,
+        password:contrasenanueva,
         email
     });
     //se almacena en la BD con metodo asincrono .save
@@ -28,10 +31,11 @@ return res.json ({
 }
 // Controlador para actualizar un usuario, requiere que se envíe ID  de usuario.
 ctrlUser.putUser = async (req,res)=>{
-   const idusu= req.params.id
-   const {username,password,email}=req.body
+   const idusu= req.params.id // obtiene el valor del parametro del enlace
+   const {username,password:contrasenarecibida,email}=req.body
+   const contrasenanueva=encriptar.hashSync(contrasenarecibida,10)
    try{
-    const usuactualizado = await User.findByIdAndUpdate(idusu,{username, password, email})
+    const usuactualizado = await User.findByIdAndUpdate(idusu,{username, password:contrasenanueva, email})
     return res.json({
         msg:" El usuario fue actualización con exito"
     }) 

@@ -54,14 +54,13 @@ ctrlTasks = {};
 // Controlador para consultar las tareas
 ctrlTasks.getTasks = async (req, res) => {
     const tasks = await Tasks.find({ isActive: true });
-
-    
+   
     res.json({tasks})
 };
 
 // Controlador para crear una nueva tarea
 ctrlTasks.postTasks = async (req, res) => {
-    const { titulo, descripcion } = req.body;
+    const { titulo, descripcion } = req.body;// Obtengo las varaiables del cuerpo de la página de Postman
 
     // Instanciar una nueva tarea
     const nuevaTarea = new Tasks({
@@ -71,7 +70,7 @@ ctrlTasks.postTasks = async (req, res) => {
 
     try {
         // Guardar tarea en la base de datos
-        const tarea = await nuevaTarea.save();
+        const tarea = await nuevaTarea.save();// save metodo de mongoose patra guardar un documento
         return res.json('La tarea fue guardada con éxito');
     } catch (error) {
         console.log(error)
@@ -82,7 +81,7 @@ ctrlTasks.postTasks = async (req, res) => {
 ctrlTasks.putTasks = async (req, res) => {
     const id = req.params.id;
     const { titulo, descripcion, ...otroDatos } = req.body;
-
+// error del cliente
     if (!id || !descripcion || !titulo) {
         return res.status(400).json({
             msg: 'No viene id en la petición',
@@ -97,6 +96,7 @@ ctrlTasks.putTasks = async (req, res) => {
         });
     } catch (error) {
         console.log(error.message);
+        //500 error en el servidor
         return res.status(500).json({
             msg: 'Error al actualizar la tarea'
         })
