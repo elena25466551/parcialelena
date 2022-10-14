@@ -1,7 +1,7 @@
 const mongoose=require("mongoose");
 const dbConnect = () =>{
     try{
-        mongoose.connect(`mongodb://localhost:27017/parcial`,{
+        mongoose.connect(`mongodb://localhost:27017/parcial1`,{
         useNewUrlParser: true,
         useUnifiedTopology: true
     })

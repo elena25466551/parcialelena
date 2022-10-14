@@ -65,7 +65,9 @@ ctrlTasks.postTasks = async (req, res) => {
     // Instanciar una nueva tarea
     const nuevaTarea = new Tasks({
         titulo,
-        descripcion
+        descripcion,
+        //agrego para el token
+        userId: req.user._id
     });
 
     try {
