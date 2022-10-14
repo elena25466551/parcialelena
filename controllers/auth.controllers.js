@@ -21,7 +21,7 @@ ctrlAuth.iniciarSesion = async (req, res) => {
             });
         }
 
-        if (!user.isActive) {
+        if (!user.active) {
             return res.status(400).json({
                 ok: false,
                 msg: 'Error al autenticarse - Usuario inactivo'

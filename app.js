@@ -4,6 +4,7 @@ app.use(express.json()); //permite usar archivos json
 // permite al servidor conectarse a la BD
 const ConexionBD = require("./bd/conexionbd")
 ConexionBD();
+require("dotenv").config();
 //permite utilizar rutas de carpetas independientemente de las barras
 const path = require("path")
 //
@@ -15,7 +16,7 @@ app.set("/views", path.join(__dirname, "/views"));
 app.set("view engine", "ejs");
 // Configuraciones
 const port = process.env.PORT || 3000;
-
+require("dotenv").config();
 // MIDDLEWARES
 app.use(cors());
 app.use(morgan('dev'));

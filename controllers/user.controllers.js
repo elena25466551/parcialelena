@@ -12,14 +12,16 @@ return res.json(users)
 //controlador para crear nuevo usuario en la BD
 ctrlUser.postUser = async(req,res)=>{
     // se obtienen los datos enviados por el metodo POST
-    const { username, password:contrasenarecibida, email } = req.body;
+    const { username, password:contrasenarecibida, email, role, ...otherData } = req.body;
     //guardo en una variable la contraseña encriptada
 const contrasenanueva=encriptar.hashSync(contrasenarecibida,10)
     //se instancia un nuevo documento MongoDB para luego guardarlo
     const newUser = new User({
         username,
         password:contrasenanueva,
-        email
+        email,
+        role,
+        otherData
     });
     //se almacena en la BD con metodo asincrono .save
 const user = await newUser.save()
@@ -32,10 +34,10 @@ return res.json ({
 // Controlador para actualizar un usuario, requiere que se envíe ID  de usuario.
 ctrlUser.putUser = async (req,res)=>{
    const idusu= req.params.id // obtiene el valor del parametro del enlace
-   const {username,password:contrasenarecibida,email}=req.body
+   const {username,password:contrasenarecibida,email, role}=req.body
    const contrasenanueva=encriptar.hashSync(contrasenarecibida,10)
    try{
-    const usuactualizado = await User.findByIdAndUpdate(idusu,{username, password:contrasenanueva, email})
+    const usuactualizado = await User.findByIdAndUpdate(idusu,{username, password:contrasenanueva, email, role})
     return res.json({
         msg:" El usuario fue actualización con exito"
     }) 

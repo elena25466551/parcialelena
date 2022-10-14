@@ -29,6 +29,10 @@ const TasksSchema = new Schema({
         type: String,
         required: true
     },
+    isEstado:{
+        type:Boolean,
+        default: false
+    },
     isActive:{
         type: Boolean,
         default: true

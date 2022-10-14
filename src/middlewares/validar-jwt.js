@@ -35,6 +35,7 @@ const validarJWT = async (req, res, next) => {
 
         // Se añade la información del usuario al request para que pueda ser utilizada en el resto de middlwares
         req.user = usuario;
+        console.log("usuariologueado: ", usuario.username);
 
         // Se continúa con la ejecución del resto de la petición
         next();

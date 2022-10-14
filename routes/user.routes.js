@@ -5,7 +5,7 @@ const {getUsers,postUser,putUser,deleteUser}=require("../controllers/user.contro
 const esAdmin = require('../src/middlewares/es-admin');
 const validarJWT = require('../src/middlewares/validar-jwt');
 //ruta para obtener todos los usuarios
-router.get("/user",[validarJWT,esAdmin],getUsers)
+router.get("/user",[validarJWT],getUsers)
 //crear nuevo usuario
 router.post("/user",postUser)
 //editar usuario requiere id de usuario

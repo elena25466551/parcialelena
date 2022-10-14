@@ -17,9 +17,11 @@ const userSchema = new Schema({
     },
     active:{
         type:Boolean,
-        required:true,
         default:true
-    }}, {
+    },
+    role:[{
+        type:String
+    }]}, {
         versionKey: false,
         timestamps: true
     });

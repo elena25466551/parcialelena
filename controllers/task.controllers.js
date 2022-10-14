@@ -53,7 +53,9 @@ ctrlTasks = {};
 
 // Controlador para consultar las tareas
 ctrlTasks.getTasks = async (req, res) => {
-    const tasks = await Tasks.find({ isActive: true });
+    const iduser = req.user._id
+    console.log(iduser)
+    const tasks = await Tasks.find({ isActive: true,userId:iduser });
    
     res.json({tasks})
 };
@@ -119,7 +121,28 @@ ctrlTasks.deleteTasks = async (req, res) => {
         });
     }
 };
-
-
+ctrlTasks.isEstado = async (req, res) => {
+    const id = req.params.id;
+    const {isEstado} = req.body
+    try {
+        await Tasks.findByIdAndUpdate(id, { isEstado: isEstado})
+        if (isEstado == true)
+        {
+            return res.json({
+                msg: "Tarea completada"
+            })
+        }
+        else{
+            return res.json({
+                msg: "Tarea en curso"
+            })   
+        }
+    } catch (err) {
+        console.log(err.message)
+        return res.status(500).json({
+            msg: 'Error al eliminar la tarea'
+        });
+    }
+}
 module.exports = ctrlTasks;
 

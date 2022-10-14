@@ -5,7 +5,9 @@ const ctrlHome = {};
 
 // Se añade la propiedad getHome que es una función que recibe dos parámetros
 // req: request y res: response. Sirven para manejar la petición y la respuesta del servidor
-ctrlHome.getHome = async (req, res) => {
+ctrlHome.getHome = async (req, res) => {7
+    
+
     const tasks = await Tasks.find({ isActive: true });
 
 
